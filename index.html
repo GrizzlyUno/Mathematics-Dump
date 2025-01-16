@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Trajectory Calculator</h2>
+
+<label>Mass (KG):</label>
+<input type="text" id = "mass"></input>
+<br>
+
+<label>Gravity:</label>
+<input id = "gravity"></input>
+<br>
+
+<label>Acceleration:</label>
+<input type="text" id = "acceleration"></input>
+<br>
+
+<label>Time:</label>
+<input id = "time"></input>
+<br>
+
+<label>Angle:</label>
+<input type="text" id = "angle"></input>
+<br>
+
+<button onclick="getValue()">Calculate</button>
+
+<script>
+    function getValue() {
+        let mass, gravity, acceleration, time, angle;
+        mass = parseFloat(document.getElementById("mass").value);
+        gravity = parseFloat(document.getElementById("gravity").value);
+        acceleration = parseFloat(document.getElementById("acceleration").value);
+        time = parseFloat(document.getElementById("time").value);
+        angle = parseFloat(document.getElementById("angle").value);
+
+        let v, vx, vy;
+        v = acceleration * time;
+        vx = v * Math.cos(angle * Math.PI / 180);
+        vy = v * Math.sin(angle * Math.PI / 180);
+
+        if (gravity !== 0) {
+        let t_flight = (2 * vy) / gravity;
+        let d = vx * t_flight;
+        let KiloNewton = (mass * acceleration) / 1000;
+
+        document.getElementById("demo").innerHTML = `
+            Velocity (v): ${String(v)}<br>
+            Horizontal Velocity (vx): ${String(vx)}<br>
+            Vertical Velocity (vy): ${String(vy)}<br>
+            Time of Flight (t_flight): ${String(t_flight)}<br>
+            Distance (d): ${String(d)}<br>
+            KiloNewton: ${String(KiloNewton)}
+        `;
+        } else {
+        document.getElementById("demo").innerHTML = "Error: Gravity cannot be zero.";
+        }
+    }
+</script>
+
+<p id="demo"></p>
+
+</body>
+</html>
